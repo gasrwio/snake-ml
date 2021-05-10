@@ -1,40 +1,51 @@
 import pygame
 import sys
 
-if __name__ == '__main__':
+x_cord = 300
+y_cord = 200
+
+x_change = 0
+y_change = 0
+
+class Snake():
+    def __init__(self):
+        self.height = 10
+        self.width = 10 
+
+    def Draw(self, screen, x, y):
+        self.shape = pygame.Rect((x, y), (self.height, self.width))
+        pygame.draw.rect(screen, pygame.Color("blue"), self.shape)
+
+if __name__ == "__main__":
     pygame.init()
     clock = pygame.time.Clock()
-    display = pygame.display.set_mode((800, 600))
-    pygame.display.set_caption('Snake')
+    pygame.display.set_caption("Snake")
+    screen = pygame.display.set_mode((600, 400))
 
-    x1 = 300
-    y1 = 300
-    x1_change = 0       
-    y1_change = 0
-     
+    snake = Snake()
+    
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    x_change = 0
+                    y_change = -10
+                if event.key == pygame.K_DOWN:
+                    x_change = 0
+                    y_change = +10
                 if event.key == pygame.K_LEFT:
-                    x1_change = -10
-                    y1_change = 0
-                elif event.key == pygame.K_RIGHT:
-                    x1_change = 10
-                    y1_change = 0
-                elif event.key == pygame.K_UP:
-                    x1_change = 0
-                    y1_change = -10
-                elif event.key == pygame.K_DOWN:
-                    x1_change = 0
-                    y1_change = 10
-     
-        x1 += x1_change
-        y1 += y1_change
-        display.fill(pygame.Color('gray13'))
-        pygame.draw.rect(display, pygame.Color('green'), [x1, y1, 10, 10])
+                    x_change = -10
+                    y_change = 0
+                if event.key == pygame.K_RIGHT:
+                    x_change = +10
+                    y_change = 0
+
+        x_cord += x_change
+        y_cord += y_change
+        snake.Draw(screen, x_cord, y_cord)
         pygame.display.update()
-        clock.tick(30)
- 
+        screen.fill(pygame.Color("gray13"))
+        clock.tick(15)
