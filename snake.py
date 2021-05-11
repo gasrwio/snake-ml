@@ -42,7 +42,12 @@ if __name__ == "__main__":
                 if event.key == pygame.K_RIGHT:
                     x_change = +10
                     y_change = 0
-
+        if x_cord < 0 or x_cord > 600:
+            pygame.quit()
+            sys.exit()
+        if y_cord < 0 or y_cord > 400:
+            pygame.quit()
+            sys.exit()
         x_cord += x_change
         y_cord += y_change
         snake.Draw(screen, x_cord, y_cord)
